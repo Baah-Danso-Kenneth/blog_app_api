@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin,  Base
 
 class CustomAccountManager(BaseUserManager):
     
-    def create_super(self, email, user_name, first_name, password, **other_fields):
+    def create_superuser(self, email, user_name, first_name, password, **other_fields):
         other_fields.setdefault('is_staff',True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
