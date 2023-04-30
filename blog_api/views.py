@@ -13,6 +13,7 @@ class PostCanBeChangedByOnlyUser(BasePermission):
         return obj.author == request.user
 
 class PostList(generics.ListCreateAPIView):
+    permission_class=[IsAuthenticated]
     queryset = Post.objects.all()
     serializer_class=PostSerializer
 
