@@ -27,30 +27,31 @@ class PostCanBeChangedByOnlyUser(BasePermission):
 #     queryset=Post.objects.all()
 #     serializer_class=PostSerializer
 
-# class PostList(viewsets.ViewSet):
-#     permission_classes = [AllowAny]
-#     queryset = Post.objects.all()
-#
-#     def list(self, request):
-#         serializer = PostSerializer(self.queryset, many=True)
-#         return Response(serializer.data, status.HTTP_201_CREATED)
-#
-#     def create(self, request):
-#         serializer = PostSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data,status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-#
-#     def retrieve(self, request, pk=None):
-#         single_article=get_object_or_404(self.queryset,pk=pk)
-#         serializer_class = PostSerializer(single_article)
-#         return Response(serializer_class.data,status=status.HTTP_200_OK)
-#
-#     def delete(self, request, pk=None):
-#         single_blog = get_object_or_404(self.queryset,pk=pk)
-#         single_blog.delete()
-#         return Response(status=status.HTTP_100_CONTINUE)
+class BlogList(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+    queryset = Post.objects.all()
+
+    def list(self, request):
+        serializer = PostSerializer(self.queryset, many=True)
+        return Response(serializer.data, status.HTTP_201_CREATED)
+
+    def create(self, request):
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk=None):
+        single_article = get_object_or_404(self.queryset, pk=pk)
+        serializer_class = PostSerializer(single_article)
+        return Response(serializer_class.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk=None):
+        single_blog = get_object_or_404(self.queryset, pk=pk)
+        single_blog.delete()
+        return Response(status=status.HTTP_100_CONTINUE)
+
 
 class PostList(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
@@ -62,6 +63,3 @@ class PostList(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Post.objects.all()
-
-
-
