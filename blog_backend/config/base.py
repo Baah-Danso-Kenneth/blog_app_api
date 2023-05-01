@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-# from django.conf import settings
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,7 +157,7 @@ SIMPLE_JWT={
     'USER_ID_FIELD':'id',
     'USER_ID_CLAIM':'user_id',
     'ALGORITHM':'HS256',
-    # 'SIGNING_KEY':settings.SECRET_KEY
-    'AUTH_HEADER_TYPES':('Bearer', ),
+    'SIGNING_KEY':os.environ.get("SECRET_KEY"),
+    'AUTH_HEADER_TYPES':('Bearer' ),
    
 }
